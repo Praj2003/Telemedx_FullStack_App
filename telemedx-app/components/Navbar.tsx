@@ -21,6 +21,7 @@ import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
 
   function handleDropdown(): boolean | void {
     setIsOpen(!isOpen);
@@ -29,12 +30,18 @@ const Navbar = () => {
   return (
     <>
       <nav className="min-w-full p-5 bg-white shadow-2xl flex items-center justify-between fixed z-20 top-0 ">
-        <div className="flex items-center justify-center gap-2">
-          <div className="relative w-10 h-10 rounded-full bg-black">
-            <Image fill={true} src={"/images/doctorIcon.jpg"} alt="doctor icon"></Image>
+        <Link href={"/"}>
+          <div className="flex items-center justify-center gap-2 cursor-pointer">
+            <div className="relative w-10 h-10 rounded-full bg-black">
+              <Image
+                fill={true}
+                src={"/images/doctorIcon.jpg"}
+                alt="doctor icon"
+              ></Image>
+            </div>
+            <h2 className="text-xl font-bold text-teal-800">TeleMedX</h2>
           </div>
-          <h2 className="text-xl font-bold text-teal-800">TeleMedX</h2>
-        </div>
+        </Link>
 
         <ul className="lg:flex lg:items-center lg:justify-center lg:gap-9 lg:list-none lg:text-md lg:font-semibold lg:text-gray-600 hidden">
           <Link href="/">
@@ -61,12 +68,41 @@ const Navbar = () => {
           >
             Contact Us
           </motion.li>
-          <motion.li
-            whileHover={{ scale: 1.1, backgroundColor: "teal", color: "white" }}
-            className="px-3 py-2 rounded-xl cursor-pointer"
-          >
-            Services
-          </motion.li>
+          <motion.div onHoverStart={() => setIsServicesOpen(true)} onHoverEnd={() => setIsServicesOpen(false)} className="relative">
+            <motion.li
+              onClick={() => setIsServicesOpen(!isServicesOpen)}
+              whileHover={{
+                scale: 1.1,
+                backgroundColor: "teal",
+                color: "white",
+              }}
+              className="relative px-3 py-2 rounded-xl cursor-pointer"
+            >
+              Services
+            </motion.li>
+
+            {isServicesOpen && (
+              <div className="absolute top-10 bg-white shadow-lg w-[200px] rounded-lg p-4">
+                <ul className="flex flex-col gap-2">
+                  <Link href={"/labTestBooking"}>
+                    <li className="cursor-pointer hover:bg-teal-500 hover:text-white px-3 py-2 rounded-lg">
+                      Lab Test Booking
+                    </li>
+                  </Link>
+                  <Link href={"/bookAppointment"}>
+                    <li className="cursor-pointer hover:bg-teal-500 hover:text-white px-3 py-2 rounded-lg">
+                      Doctor Consultation
+                    </li>
+                  </Link>
+                  <Link href={"/ai"}>
+                    <li className="cursor-pointer hover:bg-teal-500 hover:text-white px-3 py-2 rounded-lg">
+                      AI Image Analysis
+                    </li>
+                  </Link>
+                </ul>
+              </div>
+            )}
+          </motion.div>
         </ul>
 
         <ul className="flex items-center gap-4 text-md font-semibold list-none">
@@ -110,6 +146,7 @@ const Navbar = () => {
                   </motion.li>
 
                   <motion.li
+                    onClick={() => setIsServicesOpen(!isServicesOpen)}
                     whileHover={{
                       scale: 1.1,
                       backgroundColor: "teal",

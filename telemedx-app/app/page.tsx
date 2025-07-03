@@ -11,6 +11,10 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import { SlScreenSmartphone } from "react-icons/sl";
 
+import subscriptionInfo from "@/subscriptionInfo";
+
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+
 import {
   Card,
   CardAction,
@@ -104,23 +108,87 @@ export default function Home() {
       </div>
 
       <div className=" GoalsSection w-full bg-white p-3">
-        <p className="text-center text-3xl font-bold text-teal-700 pt-6 pb-10">
+        <p className="text-center text-3xl font-bold text-teal-700 pt-3 pb-10">
           What You Can Expect from TeleMedX
         </p>
 
         <div className="container mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-9 place-items-center">
-            {goalsData.map((goal,index)  => {
-               return <Card key={index} className="p-6 w-sm h-[300px] shadow-2xl border border-teal-400">
-                 <CardHeader>
-                  <CardTitle className="text-xl text-teal-700 font-bold">{goal.title}</CardTitle>
-                 <CardDescription className="text-black font-semibold text-sm">{goal.description}</CardDescription>
-                 </CardHeader>
+          {goalsData.map((goal, index) => {
+            return (
+              <Card
+                key={index}
+                className="p-6 w-sm h-[300px] shadow-2xl border border-teal-400"
+              >
+                <CardHeader>
+                  <CardTitle className="text-xl text-teal-700 font-bold">
+                    {goal.title}
+                  </CardTitle>
+                  <CardDescription className="text-black font-semibold text-sm">
+                    {goal.description}
+                  </CardDescription>
+                </CardHeader>
 
-                 <CardContent className="text-teal-500 font-bold">{goal.content}</CardContent>
+                <CardContent className="text-teal-500 font-bold">
+                  {goal.content}
+                </CardContent>
 
-                 <CardFooter>{goal.footer}</CardFooter>
-               </Card>
+                <CardFooter>{goal.footer}</CardFooter>
+              </Card>
+            );
+          })}
+        </div>
+
+        <div className="Subscription Section w-full mt-8">
+          <p className="text-center text-3xl font-bold text-teal-700 pt-3 pb-10">
+            Choose Your Subscription Plan
+          </p>
+
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-9">
+            {subscriptionInfo.map((plan, index) => {
+              return (
+                <Card
+                  key={index}
+                  className="p-6 w-sm h-[350px] shadow-2xl bg-gray-50 relative"
+                >
+                  <CardHeader>
+                    <CardTitle className="text-xl text-teal-700 font-bold">
+                      {plan.name}
+                    </CardTitle>
+                    <CardDescription className="text-black font-semibold text-lg">
+                      {plan.price} / month
+                    </CardDescription>
+                  </CardHeader>
+
+                  <CardContent className="text-teal-500 font-bold">
+                    <ul className="list-none ">
+                      {plan.features.map((feature, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-center justify-between gap-2 py-3"
+                        >
+                          {feature}
+                          <IoMdCheckmarkCircleOutline className="text-xl text-teal-600" />
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+
+                  <CardFooter>
+                    <motion.button
+                      whileHover={{
+                        scale: 1.1,
+                        backgroundColor: "teal",
+                        color: "white",
+                      }}
+                      className=" absolute bg-black text-white px-3 py-2 font-bold rounded-xl shadow-2xl shadow-teal-700 cursor-pointer bottom-4"
+                    >
+                      Subscribe Now
+                    </motion.button>
+                  </CardFooter>
+                </Card>
+              );
             })}
+          </div>
         </div>
       </div>
     </div>
