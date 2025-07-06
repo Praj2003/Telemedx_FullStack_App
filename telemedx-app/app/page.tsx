@@ -11,9 +11,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import { SlScreenSmartphone } from "react-icons/sl";
 
-import subscriptionInfo from "@/subscriptionInfo";
-
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 import {
   Card,
@@ -31,6 +29,11 @@ import Image from "next/image";
 
 export default function Home() {
   const { user } = useUser();
+  const router = useRouter();
+
+  async function handleSignUpButtonClick() {
+    router.push("/sign-up");
+  }
 
   return (
     <div className="min-w-full min-h-screen">
@@ -72,6 +75,7 @@ export default function Home() {
 
             <div className="flex items-center justify-center mt-7 gap-9">
               <motion.button
+                onClick={() => handleSignUpButtonClick()}
                 whileHover={{
                   scale: 1.1,
                   backgroundColor: "teal",
@@ -136,59 +140,6 @@ export default function Home() {
               </Card>
             );
           })}
-        </div>
-
-        <div className="Subscription Section w-full mt-8">
-          <p className="text-center text-3xl font-bold text-teal-700 pt-3 pb-10">
-            Choose Your Subscription Plan
-          </p>
-
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-9">
-            {subscriptionInfo.map((plan, index) => {
-              return (
-                <Card
-                  key={index}
-                  className="p-6 w-sm h-[350px] shadow-2xl bg-gray-50 relative"
-                >
-                  <CardHeader>
-                    <CardTitle className="text-xl text-teal-700 font-bold">
-                      {plan.name}
-                    </CardTitle>
-                    <CardDescription className="text-black font-semibold text-lg">
-                      {plan.price} / month
-                    </CardDescription>
-                  </CardHeader>
-
-                  <CardContent className="text-teal-500 font-bold">
-                    <ul className="list-none ">
-                      {plan.features.map((feature, idx) => (
-                        <li
-                          key={idx}
-                          className="flex items-center justify-between gap-2 py-3"
-                        >
-                          {feature}
-                          <IoMdCheckmarkCircleOutline className="text-xl text-teal-600" />
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-
-                  <CardFooter>
-                    <motion.button
-                      whileHover={{
-                        scale: 1.1,
-                        backgroundColor: "teal",
-                        color: "white",
-                      }}
-                      className=" absolute bg-black text-white px-3 py-2 font-bold rounded-xl shadow-2xl shadow-teal-700 cursor-pointer bottom-4"
-                    >
-                      Subscribe Now
-                    </motion.button>
-                  </CardFooter>
-                </Card>
-              );
-            })}
-          </div>
         </div>
       </div>
     </div>
