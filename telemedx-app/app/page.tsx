@@ -15,13 +15,21 @@ import { useRouter } from "next/navigation";
 
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+import { qnaData } from "@/qna";
 
 import goalsData from "@/goalsData";
 
@@ -141,6 +149,26 @@ export default function Home() {
             );
           })}
         </div>
+      </div>
+
+      <div className="w-full flex flex-col items-center justify-center mt-6 mb-12">
+        <h1 className="text-center text-3xl font-bold text-teal-700 pt-3 pb-10">
+          Frequently Asked Questions
+        </h1>
+        {qnaData.map((item, index) => {
+          return (
+            <Accordion type="single" collapsible className="lg:w-[40vw] md:w-[40vw] sm:w-[20px] " key={index}>
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-teal-700 font-bold text-xl">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-black font-semibold text-lg">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          );
+        })}
       </div>
     </div>
   );

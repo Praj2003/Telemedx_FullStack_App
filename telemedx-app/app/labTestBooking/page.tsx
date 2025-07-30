@@ -47,6 +47,17 @@ const LabTestBooking = () => {
         return;
       }
 
+      if (
+        !patientName ||
+        !contactNumber ||
+        !address ||
+        !selectedTest ||
+        !preferredDate
+      ) {
+        toast.error("Please fill all the fields", { position: "bottom-right" });
+        return;
+      }
+
       const response = await fetch("/api/labtest", {
         method: "POST",
         headers: {
@@ -103,7 +114,6 @@ const LabTestBooking = () => {
         <h2 className="text-xl font-semibold text-teal-700 italic">
           "Your Health, Our Priority — Seamless Care At Your Fingertips"
         </h2>
-
       </div>
 
       <div className="flex items-center justify-center min-w-full min-h-screen bg-gray-50">
@@ -195,7 +205,14 @@ const LabTestBooking = () => {
 
           <CardFooter>
             <motion.button
-              onClick={handleSubmit}
+              onClick={() => {
+                const isConfirmed = window.confirm(
+                  "Are you sure you want to submit the lab test booking?"
+                );
+                if (isConfirmed) {
+                  handleSubmit();
+                }
+              }}
               whileHover={{
                 scale: 1.1,
                 color: "white",
